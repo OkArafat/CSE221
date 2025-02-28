@@ -1,7 +1,7 @@
-t=int(input())
-for i in range(t):
-  n=int(input())
-  if n%2==0:
-    print(f"{n} is an Even number.")
+a=int(input())
+for k in range(a):
+  o=int(input())
+  if o%2==0:
+    print(f"{o} is an Even number.")
   else:
-    print(f"{n} is an Odd number.")
+    print(f"{o} is an Odd number.")

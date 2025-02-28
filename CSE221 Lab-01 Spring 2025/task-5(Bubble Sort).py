@@ -1,36 +1,36 @@
 import sys
 def merge_sort(arr):
-    if len(arr) > 1:
-        mid = len(arr) // 2
-        left_half = arr[:mid]
-        right_half = arr[mid:]
+    if len(arr)> 1:
+        mid=len(arr) // 2
+        lefthalf= arr[:mid]
+        righthalf = arr[mid:]
 
-        merge_sort(left_half)
-        merge_sort(right_half)
+        merge_sort(lefthalf)
+        merge_sort(righthalf)
 
-        i = j = k = 0
-        while i < len(left_half) and j < len(right_half):
-            if left_half[i] < right_half[j]:
-                arr[k] = left_half[i]
+        i =0 
+        j = 0
+        k = 0
+        while i < len(lefthalf) and j< len(righthalf):
+            if lefthalf[i]<righthalf[j]:
+                arr[k] = lefthalf[i]
                 i += 1
             else:
-                arr[k] = right_half[j]
+                arr[k] = righthalf[j]
                 j += 1
             k += 1
         
-        while i < len(left_half):
-            arr[k] = left_half[i]
+        while i < len(lefthalf):
+            arr[k] = lefthalf[i]
             i += 1
             k += 1
         
-        while j < len(right_half):
-            arr[k] = right_half[j]
+        while j < len(righthalf):
+            arr[k] = righthalf[j]
             j += 1
             k += 1
 
 n = int(sys.stdin.readline().strip())
 arr = list(map(int, sys.stdin.readline().split()))
-
 merge_sort(arr)
-
 sys.stdout.write(" ".join(map(str, arr)) + "\n")

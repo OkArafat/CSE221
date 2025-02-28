@@ -1,6 +1,7 @@
+
 t=int(input())
 for i in range(t):
-    n = int(input())
-    a=n * (n + 1)
-    b=a//2
-    print(b)
+    p=int(input())
+    a=p*(p + 1)
+    d=a//2
+    print(d)

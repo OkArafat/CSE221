@@ -1,5 +1,5 @@
 import sys
-def time_to_minutes(time_str):
+def timetominutes(time_str):
     hours = int(time_str[:2])  
     minutes = int(time_str[3:])  
     return hours * 60 + minutes  
@@ -14,11 +14,11 @@ for i in range(N):
     line = sys.stdin.readline().strip()  
     parts = line.split()  
 
-    train_name = parts[0]  
+    trainname_1 = parts[0]  
     departure_time = parts[-1]  
-    time_in_minutes = time_to_minutes(departure_time)  
+    time_in_minutes = timetominutes(departure_time)  
 
-    trains.append((train_name, time_in_minutes, line)) 
+    trains.append((trainname_1, time_in_minutes, line)) 
 
 trains.sort(key=sorting_key)
 
