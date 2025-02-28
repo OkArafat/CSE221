@@ -1,17 +1,36 @@
-def bubbleSort(arr, n):
-    for i in range(n - 1):
-        swapped = False 
-        for j in range(n - i - 1):
-            if j + 1 < len(arr) and arr[j] > arr[j + 1]:  
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
-                swapped = True
-        if swapped != True:  
-            break
-n = int(input())
-arr = []
-for i in range(n):
-    arr.append(int(input()))
-bubbleSort(arr, n)  
-for num in arr:
-    print(num, end=" ")
-print()
+import sys
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+        
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+        
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+
+n = int(sys.stdin.readline().strip())
+arr = list(map(int, sys.stdin.readline().split()))
+
+merge_sort(arr)
+
+sys.stdout.write(" ".join(map(str, arr)) + "\n")

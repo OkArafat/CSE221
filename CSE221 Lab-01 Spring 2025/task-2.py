@@ -10,4 +10,3 @@ for i in range(t):
     num2 = int(num2)
     result = calculation[op](num1,num2)
     print(f"{result:.6f}")
-  
