@@ -1,11 +1,11 @@
 import sys
-def a_function(base, exp, mod):
+def a_function(vumi, x, y):
     result = 1
-    while exp > 0:
-        if exp % 2 == 1:
-            result = (result * base) % mod
-        base = (base * base) % mod
-        exp //= 2
+    while x > 0:
+        if x % 2 == 1:
+            result = (result * vumi) % y
+        vumi = (vumi * vumi) % y
+        x //= 2
     return result
 
 def b_finction(a, m):
@@ -19,10 +19,10 @@ def solve(a, n, m):
     denominator_inv = b_finction(denominator, m)
     return (numerator * denominator_inv) % m
 
-T = int(input()) 
+ok = int(input()) 
 results = []  
 
-for i in range(T):
+for i in range(ok):
     values = input().split()  
     a = int(values[0])  
     n = int(values[1])
