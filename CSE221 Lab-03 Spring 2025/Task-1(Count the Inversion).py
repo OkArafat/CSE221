@@ -4,7 +4,7 @@ def merge(a, b):
     merged = []
     i = j = count = 0
     a_len, b_len = len(a), len(b)
-    
+
     while i < a_len and j < b_len:
         if a[i] <= b[j]: 
             merged.append(a[i])
