@@ -10,21 +10,21 @@ for l in range(m):
     graph[u].append(v)
     in_degree[v] += 1
 
-heap = []
+heap_a = []
 
 for i in range(1, n + 1):
     if in_degree[i] == 0:
-        heapq.heappush(heap, i)
+        heapq.heappush(heap_a, i)
 
 result = []
-while heap:
-    u = heapq.heappop(heap)
+while heap_a:
+    u = heapq.heappop(heap_a)
     result.append(u)
     for v in sorted(graph[u]):
         
         in_degree[v] -= 1
         if in_degree[v] == 0:
-            heapq.heappush(heap, v)
+            heapq.heappush(heap_a, v)
 
 if len(result) == n:
     print(' '.join(map(str, result)))
