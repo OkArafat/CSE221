@@ -1,37 +1,24 @@
 import sys
-sys.setrecursionlimit(10**6)
-
-def calculate_subtree_sizes(N, R, adj):
-
-    subtree_size = [0] * (N + 1)
-    stack = [(R, -1)]  
-    post_order = [] 
-    
-    while stack:
-        node, parent = stack.pop()
-        post_order.append((node, parent))  
-        for neighbor in adj[node]:
-            if neighbor != parent:
-                stack.append((neighbor, node))
-    for node, parent in reversed(post_order):
-        subtree_size[node] = 1 
-        for neighbor in adj[node]:
-            if neighbor != parent:
-                subtree_size[node] += subtree_size[neighbor]
-    
-    return subtree_size
-
-N, R = map(int, input().split())  
-adj = [[] for _ in range(N + 1)] 
-for _ in range(N - 1):
-    u, v = map(int, input().split())
-    adj[u].append(v)
-    adj[v].append(u)
-
-subtree_size = calculate_subtree_sizes(N, R, adj)
-
-Q = int(input())
-
-for _ in range(Q):
-    X = int(input())
-    print(subtree_size[X])
+from collections import deque
+def solveing():
+    N = int(sys.stdin.readline())
+    a1,b1,x1,y1 = map(int,sys.stdin.readline().split())
+    path=[(-2, -1), (-1, -2), (1, -2), (2, -1),
+                  (2, 1), (1, 2), (-1, 2), (-2, 1)]
+    show = [[-1] * (N + 1) for z in range(N + 1)]
+    q = deque()
+    q.append((a1, b1))
+    show[a1][b1] = 0    
+    while q:
+        x,y = q.popleft()
+        if x == x1 and y == y1:
+            print(show[x][y])
+            return
+        for dx, dy in path:
+            nx = x + dx
+            ny = y + dy
+            if 1 <= nx <= N and 1 <= ny <= N and show[nx][ny] == -1:
+                show[nx][ny] = show[x][y] + 1
+                q.append((nx, ny))
+    print(-1)
+solveing()
