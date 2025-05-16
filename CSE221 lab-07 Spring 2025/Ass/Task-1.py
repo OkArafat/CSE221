@@ -1,53 +1,65 @@
+import os
 import heapq
-import sys
 from collections import defaultdict
- 
-def main():
-    input = sys.stdin.read
-    data = input().split()
-    idx = 0
- 
-    N = int(data[idx]); idx += 1
-    M = int(data[idx]); idx += 1
-    S = int(data[idx]); idx += 1
-    D = int(data[idx]); idx += 1
- 
-    u = list(map(int, data[idx:idx + M])); idx += M
-    v = list(map(int, data[idx:idx + M])); idx += M
-    w = list(map(int, data[idx:idx + M])); idx += M
- 
+
+# Only implement solve(), no main, file, open, input, print, etc.
+def solve():
+    # read all input from fd 0
+    data = os.read(0, 1 << 26).split()
+    it = iter(data)
+
+    N = int(next(it))
+    M = int(next(it))
+    S = int(next(it))
+    D = int(next(it))
+
+    # second line u's
+    u_list = [int(next(it)) for _ in range(M)]
+    # third line v's
+    v_list = [int(next(it)) for _ in range(M)]
+    # fourth line w's
+    w_list = [int(next(it)) for _ in range(M)]
+
     graph = defaultdict(list)
     for i in range(M):
-        graph[u[i]].append((v[i], w[i]))
- 
-    dist = [float('inf')] * (N + 1)
-    prev = [-1] * (N + 1)
+        u = u_list[i]
+        v = v_list[i]
+        w = w_list[i]
+        graph[u].append((v, w))
+
+    INF = 10**30
+    dist = [INF] * (N + 1)
+    prev_node = [-1] * (N + 1)
+
     dist[S] = 0
-    pq = [(0, S)]
- 
+    pq = [(0, S)]  # (distance, node)
     while pq:
-        d, node = heapq.heappop(pq)
-        if d > dist[node]:
+        d, u = heapq.heappop(pq)
+        if d > dist[u]:
             continue
-        for nei, weight in graph[node]:
-            if dist[nei] > d + weight:
-                dist[nei] = d + weight
-                prev[nei] = node
-                heapq.heappush(pq, (dist[nei], nei))
- 
-    if dist[D] == float('inf'):
-        print(-1)
-        return
- 
-    path = []
-    cur = D
-    while cur != -1:
-        path.append(cur)
-        cur = prev[cur]
-    path.reverse()
- 
-    print(dist[D])
-    print(' '.join(map(str, path)))
- 
-if _name_ == "_main_":
-    main()
+        for v, w in graph[u]:
+            nd = d + w
+            if dist[v] > nd:
+                dist[v] = nd
+                prev_node[v] = u
+                heapq.heappush(pq, (nd, v))
+
+    # prepare output
+    out = []
+    if dist[D] == INF:
+        out.append(b'-1\n')
+    else:
+        out.append(str(dist[D]).encode() + b'\n')
+        # reconstruct path
+        path = []
+        cur = D
+        while cur != -1:
+            path.append(cur)
+            cur = prev_node[cur]
+        path.reverse()
+        out.append(b' '.join(str(x).encode() for x in path) + b'\n')
+
+    os.write(1, b''.join(out))
+
+# call solve directly
+solve()
